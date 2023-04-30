@@ -81,7 +81,8 @@ def prepareVariable(df,MA_1,MA_2,MA_3):
     df[f'SD_{MA_1}_low'] = df['low'].rolling(window=MA_1).std()
     df[f'SD_{MA_3}_low'] = df['low'].rolling(window=MA_3).std()
     df.dropna(inplace=True)
-    df.to_csv("btc_pred_process.csv", index=False)
+    df.set_index('formatted_date')
+    df.to_csv("btc_pred_process.csv",index=False)
 
 def predict(df, cols_x, model,error_model):
     pre_day = 1
@@ -112,7 +113,7 @@ if __name__ == '__main__':
     model_error_close,model_error_open ,model_error_high ,model_error_low= loadModelError()
     prepareVariable(df,MA_1,MA_2,MA_3)
    
-    n=7
+    n=365
     df3 = pd.read_csv("./btc_pred_process.csv")
    
 
